@@ -1,0 +1,861 @@
+<html>
+    <header>
+        <title>Items managment</title>
+          <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+
+        <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+        <style>
+            @import url(&#39;https://fonts.googleapis.com/css2?family=Montserrat:wght@300&amp;display=swap&#39;);
+
+             :root {
+                    --primaryColor: #1597E5;
+                    --darkColor: #3D56B2;
+                    }
+
+                *{
+                 box-sizing: border-box;
+                 }
+
+                html{
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f6f7fb;
+                    height: 100%;
+                    font-family: 'Montserrat', sans-serif;
+                }
+                body{
+                    min-height: 100%;
+                    padding: 20px;
+                    text-transform: uppercase;
+                }
+                
+                .table-box{
+                    margin: 50px auto;
+                }
+                .table-row{
+                    background-color: white;
+                    border-radius: 5px;
+                    display: table;
+                    width: 80%;
+                    margin: 6px auto;
+                    padding: 12px;
+                    color: #555;
+                    font-size: 14px;
+                    box-shadow: 0 1px 4px 0 rgba(0, 0, 50, 0.3);
+                }
+                .table-row.item:hover{
+                    cursor: pointer;
+                    background-color: #71DFE7;
+                }
+                .table-cell{
+                    display: table-cell;
+                    text-align: start;
+                    padding: 4px 0;
+                    border-right: 1px solid black;
+                    vertical-align: middle;
+                    background-color: inherit;
+                }
+
+                .table-head{
+                    background-color: #396EB0;
+                    box-shadow: none;
+                    color: white;
+                    font-weight: 600;
+                }
+
+                .table-head .table-cell{
+                    border-right: none;
+                }
+
+                p{
+                    background-color: inherit;
+                }
+                /*-----------------*/
+
+                .styled-table {
+                border-collapse: collapse;
+                margin: 25px;
+                font-size: 0.85rem;
+                width: 96%;
+                border-radius: 7px 7px 0 0;
+                overflow: hidden;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+                background-color: white;
+              }
+
+              .styled-table thead th {
+              background-color: var(--primaryColor);
+              color: #ffffff;
+              text-align: start;
+              text-transform: uppercase;
+              cursor: pointer;
+              z-index: 8;
+             }
+
+
+              .styled-table tbody tr{
+              background-color: white;
+             }
+
+             .styled-table tr th,
+            .styled-table td {
+             padding: 15px 20px;
+             text-align: center;
+            }
+
+            tr td{
+                background-color: inherit;
+            }
+
+           
+
+            .styled-table tbody tr {
+               border-bottom: 3px solid #dddddd;
+              
+            }
+
+            /*
+            .styled-table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+            }*/
+
+            .styled-table tbody tr:last-of-type {
+                border-bottom: 2px solid var(--primaryColor);;
+            }
+
+            .styled-table tbody tr.active-row {
+                font-weight: bold;
+                color: black;
+                background-color: #f6f7fb;
+                border-left: 8px solid var(--primaryColor);;
+            }
+
+            .styled-table tbody tr:hover{
+                background-color: #d6d3d2;
+                cursor: pointer;
+            }
+
+            /*-------------------*/
+            .top-bar{
+                margin-bottom: 16px;
+                padding-left: 25px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 96%;
+            }
+
+            .input-container{
+                width: 100%;
+                margin-right: 30px;
+            }
+
+            input{
+                width: 400px;
+                height: 40px;
+                border-radius: 3px;
+                font-size: 14px; 
+                padding: 12px 20px 12px 20px; 
+                border: 1px solid var(--primaryColor);; 
+            }
+
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                vertical-align: middle;
+                align-items: center;
+            }
+
+            .buttons a{
+                margin: 8px 0 8px 18px;
+                text-decoration: none;
+                color: var(--primaryColor);;
+                font-size: 15px;    
+                font-weight: bold;
+            }
+
+            .buttons a:hover{
+                color: var(--primaryColor);;   
+            }
+
+            .buttons img{
+               height: 35px;
+               object-fit: cover;
+
+            }
+
+            /*-----------------*/
+
+            .card-container{
+                height: 90%;
+                display: flex;
+                padding-bottom: 0;
+                }
+
+              
+
+                .card-container .items-container{
+                width: 100%;
+               /* height: 100%;
+                overflow-y: auto;*/
+                }
+
+               .projects table{
+                   margin-top: 34px;
+                   width: 90%;
+               }
+
+               .projects table thead th {
+                background-color: #1DE9B6;
+                color: black;
+                cursor: pointer;
+               }
+
+               .projects table tbody tr:last-of-type {
+                border-bottom: 2px solid #1DE9B6;
+               }
+
+             
+                .projects-header{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                font-size: 20px;
+                vertical-align: middle;
+               }
+
+               .projects-header p{
+                margin: 0;
+                font-size: 15px;
+                font-weight: bold;
+                vertical-align: middle;
+               }
+
+               .projects-header a{
+                color: black;
+                text-decoration: none;
+               }
+
+               .projects-header a:hover{
+                cursor: pointer;
+                color: white;
+               }
+
+              
+               .fixTableHead {
+                overflow-y: auto;
+                height: 100%;
+                }
+
+                .header-container{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                }
+
+                .header-container p{
+                  margin: 0;
+                  display: inline-block;
+                }
+
+                .header-container:hover{
+                 cursor: pointer;
+                 color: black;
+                }
+
+
+               .modal-btn-stack{
+                   display: flex;
+                   flex-direction: row;
+                   justify-content: end;
+               }
+
+               .wide-form{
+                   display: flex;
+                   flex-direction: row;
+                   width: 100%;
+               }
+
+               .wide-form input, .wide-form textarea{
+                   width: 350px;
+               }
+
+               .wide-form label{
+                   font-size: 13px;
+                   color: var(--primaryColor);;
+               }
+
+               /*-------------------------------*/
+
+               .exportBtn{
+                    color: var(--primaryColor);;
+                    font-size: 15px;
+                    font-weight: 700;
+                    background-color: transparent;
+                    border: none;
+                    margin-left: 10px;
+               }
+
+               .exportBtn:hover{
+                color: var(--darkColor);;  
+               }
+
+            /*--------------custom input file-------------------*/
+              .custom-file-input {
+                  color: transparent;
+                  border: none;
+                  height: 30px;
+                  padding: 0;
+              }
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'IMPORT';
+  color: var(--primaryColor);
+  display: inline-block;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 15px;
+}
+.custom-file-input:hover::before {
+  color: var(--darkColor);
+}
+.custom-file-input:active {
+  outline: 0;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+}
+
+             /*--------------custom input file-------------------*/    
+
+		.left-side-buttons{
+                        align-items: center;
+		} 
+
+ /*--------------dropdown-------------------*/ 
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content .dropdownItem {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  text-align: center;
+  width: 100%;
+}
+
+.dropdown-content .dropdownItem:hover {
+  background-color: #548CFF;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+ /*--------------dropdown-------------------*/ 
+    
+        </style>
+
+    </header>
+    <body>
+
+  <div class="card-container">
+        
+  
+    
+<div class="items-container">
+
+    <div class="top-bar">
+ 
+        <div class="left-side-buttons">
+            <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search...">
+            <button class="exportBtn" onclick="exportData()">EXPORT</button> 
+           
+            <input type="file" id="myFile" name="myFile" onchange="readCsvFile()"  class="custom-file-input">
+        </div>
+        
+
+        <div class="buttons">
+            <img src="https://logos-download.com/wp-content/uploads/2016/02/Intel_Logo_2020.png"/>
+            <a href='' id="editBtn">Edit</a>
+            <a href='' id="deleteBtn">Delete</a>
+            <a href='' id="closeBtn">Close</a>
+        </div>
+    </div>
+    
+    
+    <div class="fixTableHead">
+        <table class="styled-table" id="itemsTable">
+            <thead>
+              
+            </thead>
+            <tbody>
+          
+                 
+                
+                
+               
+            </tbody>
+        </table>
+    </div>     
+</div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="ddtf.js"></script>
+<script>
+
+ 
+
+var index;
+var highlightedRow=-1;
+var partsTable = document.getElementById("itemsTable");
+var rows = document.getElementById("itemsTable").rows;
+const editBtn = document.querySelector('#editBtn');   
+const deleteBtn = document.querySelector('#deleteBtn');
+const closeBtn = document.querySelector('#closeBtn');   
+const addModal = document.querySelector('#modalForm'); 
+var checkboxWo = document.querySelector("#checkboxWo");
+var checkboxRc = document.querySelector("#checkboxRc");
+var checkboxEngine = document.querySelector("#checkboxEngine");
+var checkboxPart = document.querySelector("#checkboxPart");
+var checkboxFinished = document.querySelector("#checkboxFinished");
+var checkboxProcess = document.querySelector("#checkboxProcess");
+var checkboxFailed = document.querySelector("#checkboxFailed");
+//var checkboxRefrence = document.querySelector("#checkboxRefrence");
+//var checkboxOperation = document.querySelector("#checkboxOperation");
+var dataAttribute;
+var filtersAray = [0,1,2,3,4,5,6];
+var checkboxsAray = [checkboxWo,checkboxRc,checkboxEngine,checkboxPart,checkboxFinished,checkboxProcess,checkboxFailed];
+const initialWorkNumber = 98367;
+let lastWorkNumber;
+var dropdownElements = [];
+var filtersArray = [[]];
+let map = new Map();
+
+toggleVisibilty(true);
+//populateInitTable();
+//exportData();
+
+
+function toggleVisibilty(hidden){
+    if(hidden){
+        editBtn.style.display = "none";
+        deleteBtn.style.display = "none";
+        closeBtn.style.display = "none";
+    }else{
+        editBtn.style.display = "initial";
+        deleteBtn.style.display = "initial";
+        closeBtn.style.display = "initial";
+
+    }
+}
+
+
+function addHeaderColHandlers() {
+    
+         rows[0].querySelectorAll('th').forEach(function(elem) {
+            elem.addEventListener("click", function() {
+            
+             clickedColumn = event.target.cellIndex;
+             console.log(clickedColumn);
+
+              dropdownElements = getColumn(clickedColumn);
+             // console.log(dropdownElements);
+             //show dropdown
+              simulateFilters(clickedColumn, "4500");
+            //  simulateFilters(clickedColumn+1, "bbbccc");
+    });
+});
+}
+
+
+
+function clearRows(){
+    for (i = 0; i < rows.length; i++) {
+        rows[i].classList.remove("active-row");
+    }
+}
+
+
+
+function searchTable() {
+  // Declare variables
+  var input, filter, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  tr = partsTable.getElementsByTagName("tr");
+  cols = partsTable.getElementsByTagName("th");
+  
+        //check row
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+  
+}
+
+
+function populateInitTable(){
+    var dataArray = [
+                    ['73862',getCurrentDate(),'13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                    ['73863','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1883','-','Signature'],
+                    ['73864','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                    ['73865','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                    ['73866','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Tensile','1824','-','Signature'],
+                    ['73867','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','DHL','-','Signature'],
+                    ['73868','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','DHL','-','Signature'],
+                    ['73869','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                    ['73870','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                    ['73871','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1883','-','Signature'],
+                    ['73875','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Tensile','1824','-','Signature'],
+                    ['73876','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                    ['73877',getCurrentDate(),'13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1883','-','Signature']
+           
+                    ];
+        for(var i=0;i<dataArray.length;i++){  
+            lastWorkNumber = initialWorkNumber+i;
+            dataArray[i][0] = lastWorkNumber.toString();
+            addRow(dataArray[i]) 
+       }      
+       console.log(lastWorkNumber)       
+}
+
+function setColorToStatusColumn(){
+    //need to do
+}
+
+function insertData(){
+   const vc = addModal.querySelector('#routecard').textContent
+   const pn = addModal.querySelector('#partnumber').textContent
+   const ps = addModal.querySelector('#partserail').textContent
+   const es = addModal.querySelector('#engineserial').textContent
+   const et = addModal.querySelector('#enginetype').textContent
+   
+   inputValuesArray = ['123456',vc,'disk turbine',pn,ps,et,es,'01/2/22','IN WORK'];
+   addRow(inputValuesArray)
+}
+
+function addHeadrRow(inputValuesArray) {
+  //var inputValuesArray = ['1111','234','disk','hf383','serial','f100','hjhds','12.2.2','start'];
+  var row = partsTable.querySelector('thead').insertRow(0);
+  for(var i=0; i<inputValuesArray.length; i++){
+   // row.insertCell(i).outerHTML = "<th class='dropdown'><p></p><div class='dropdown-content'><button class='dropdownItem'>Link 3</button></div></th>";
+    row.insertCell(i).outerHTML = "<th </th>";
+
+    row.cells[i].textContent = inputValuesArray[i];
+   // row.cells[i].querySelector('p').textContent = inputValuesArray[i];
+  }
+}
+
+function addRow(inputValuesArray) {
+  //var inputValuesArray = ['1111','234','disk','hf383','serial','f100','hjhds','12.2.2','start'];
+  var row = partsTable.querySelector('tbody').insertRow(partsTable.rows.length-1);
+  for(var i=0; i<inputValuesArray.length; i++){
+    row.insertCell(i).textContent = inputValuesArray[i];
+   
+  }
+}
+
+
+function deleteRow(highlightedRow) {
+    console.log(highlightedRow)
+    if(highlightedRow>0){
+        partsTable.deleteRow(highlightedRow);
+    }
+}
+
+deleteBtn.addEventListener("click", function(event){
+  event.preventDefault() //default reloads page
+  deleteRow(highlightedRow)
+});
+
+function getCurrentDate(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+}
+
+function exportData(){
+
+ var dataArray = [
+                    ['73862',getCurrentDate(),'13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                    ['73863','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1883','-','Signature'],
+                    ['73864','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                    ['73865','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                    ['73866','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Tensile','1824','-','Signature'],
+                    ['73867','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','DHL','-','Signature'],
+                    ['73868','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','DHL','-','Signature'],
+                    ['73869','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                    ['73870','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                    ['73871','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1883','-','Signature'],
+                    ['73875','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Tensile','1824','-','Signature'],
+                    ['73876','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                    ['73877',getCurrentDate(),'13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1883','-','Signature']
+           
+                    ];
+
+ 
+    /* Declaring array variable */
+    var rows =[];
+    var singleRow = [];
+    const numOfColumns = partsTable.rows[0].cells.length 
+
+    for(var i=0; i< partsTable.rows.length ;i++){
+            singleRow = [];
+            for(var j=0; j<numOfColumns; j++){ 
+                singleRow.push(partsTable.rows[i].cells[j].innerText)
+            }
+            rows.push(singleRow);
+        }   
+
+        csvContent = "data:text/csv;charset=utf-8,";
+         /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+         /* switched dataArray with dataArray */
+         rows.forEach(function(rowArray){
+            row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+ 
+        /* create a hidden <a> DOM node and set its download attribute */
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "Stock_Price_Report.csv");
+        document.body.appendChild(link);
+         /* download the data file named "Stock_Price_Report.csv" */
+        link.click();
+}
+
+
+function readCsvFile() {
+    var fileSize = 0;
+    var fileRows =[];
+    //get file
+    var theFile = document.getElementById("myFile");
+   console.log("got file")
+    
+     var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+     //check if file is CSV
+     if (regex.test(theFile.value.toLowerCase())) {
+      console.log("file is csv")
+     //check if browser support FileReader
+        if (typeof (FileReader) != "undefined") {
+      console.log("support browser")
+        var headerLine = "";
+        //create html5 file reader object
+        var myReader = new FileReader();
+        // call filereader. onload function
+        myReader.onload = function(e) {
+            var content = myReader.result;
+            //split csv file using "\n" for new line ( each row)
+            var lines = content.split("\r");
+
+            var lines = lines.filter(function (el) {
+                return el.length > 8
+                });
+          
+            //loop all rows
+            for (var count = 0; count < lines.length; count++) {
+           
+                //split each row content
+
+                  //   someText = someText.replace(/(\r\n|\n|\r)/gm, "");
+             //   var rowContent = lines[count].split(",");
+
+           var rowContentTemp  = lines[count].replace(/(\r\n|\n|\r)/gm, "");
+           
+           var rowContent = rowContentTemp.split(",");
+               rowContent.pop();
+
+              
+          
+              //  fileRows.push(rowContent)
+                  if(rowContent!==""){
+                     if(count == 0){
+                     addHeadrRow(rowContent); 
+		     }else{					
+                     addRow(rowContent);
+                     }
+                 }
+                
+            }
+ 		
+               // addHeaderColHandlers();
+               jQuery('#itemsTable').ddTableFilter();
+        }
+         //call file reader onload
+          myReader.readAsText(theFile.files[0]);
+        }
+        else 
+        {
+              alert("This browser does not support HTML5.");
+        }
+        
+    }
+    else {
+                alert("Please upload a valid CSV file.");
+    }
+    return false;
+}
+
+
+
+function getColumn(col) {
+
+    var n = partsTable.rows.length;
+    var i, s = null, tr, td;
+    var colElements = []
+
+    // First check that col is not less then 0
+    if (col < 0) {
+        return null;
+    }
+
+    for (i = 1; i < n; i++) {
+        tr = partsTable.rows[i];
+        if (tr.cells.length > col) { // Check that cell exists before you try
+            td = tr.cells[col];
+            colElements.push(td.innerText);// to access it.
+        } // Here you could say else { return null; } if you want it to fail
+          // when requested column is out of bounds. It depends.
+    }
+     //remove duplicate items from array
+      dropdownElements = colElements.filter(function(item, pos){
+      return colElements.indexOf(item) == pos; 
+    });
+
+    return dropdownElements;
+}
+
+
+/*
+//filter table row
+function filterTable(filtersArray) {
+  // Declare variables
+  var tr, td, i, txtValue, cols;
+  tr = partsTable.getElementsByTagName("tr");
+  cols = partsTable.getElementsByTagName("th").length;
+  
+        //check row
+             for (j = 1; j < tr.length; j++) {
+               //loop through each column
+               for (i = 0; i < cols.length; i++) {
+                 text = map.get(0);
+
+                td = tr[j].getElementsByTagName("td")[i];
+                
+                txtValue = td.textContent || td.innerText;
+            
+            if (filtersArray.indexOf(txtValue.toUpperCase()) > -1) {     
+               tr[j].style.display = "";
+               break;
+             } else {
+              tr[j].style.display = "none";
+            }
+           }
+        }
+  
+}*/
+
+
+
+function simulateFilters(col, char){
+
+    if(map.has(col)){
+        let temp = map.get(col);
+        if(temp.includes(char)){
+            temp = temp.filter(e => e !== char);
+        }else{
+            temp.push(char)
+        }
+        map.set(col, temp);
+    }else{
+        let temp = [char]
+        map.set(col, temp);
+    }
+   
+
+   console.log(( map ))
+   filterTable();
+}
+
+
+//filter table row
+function filterTable() {
+  // Declare variables
+  var tr, td, i, txtValue, cols;
+  tr = partsTable.getElementsByTagName("tr");
+  cols = partsTable.getElementsByTagName("th");
+  
+        //check row
+             for (j = 1; j < tr.length; j++) {
+                
+               //loop through each column
+               for (i = 0; i < cols.length; i++) {
+          
+                 text = map.get(i);
+              
+                 if(text == null){
+                    console.log("CONTINUE")
+                    continue;
+                 }
+
+                td = tr[j].getElementsByTagName("td")[i];
+                
+                txtValue = td.textContent || td.innerText;
+                console.log(txtValue)
+                console.log(text)
+            if (txtValue.toUpperCase() === text.toString().toUpperCase()) {     
+               tr[j].style.display = "";
+             } else {
+              tr[j].style.display = "none";
+              break;
+            }
+           }
+        }
+  
+}
+
+</script>
+
+    </body>
+</html>
