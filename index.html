@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lithography managment</title>
+        <link rel="icon" type="image/x-icon" href="intel.ico" />
+
+          <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://www.markuptag.com/bootstrap/5/css/bootstrap.min.css" />
+
+       <!---- <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">-->
+
+          <!-- plot graph-->
+       <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+        <style>
+            @import url(&#39;https://fonts.googleapis.com/css2?family=Montserrat:wght@300&amp;display=swap&#39;);
+
+             :root {
+                    --primaryColor: #1597E5;
+                    --darkColor: #3D56B2;
+                    }
+
+                *{
+                 box-sizing: border-box;
+                 }
+
+                html{
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f6f7fb;
+                    height: 100%;
+                    font-family: 'Montserrat', sans-serif;
+                }
+
+                body{
+                    min-height: 100%;
+                    padding: 20px;
+                    text-transform: uppercase;
+                    background-color: white;
+                }
+                
+                .table-box{
+                    margin: 50px auto;
+                }
+
+                .table-row{
+                    background-color: white;
+                    border-radius: 5px;
+                    display: table;
+                    width: 80%;
+                    margin: 6px auto;
+                    padding: 12px;
+                    color: #555;
+                    font-size: 14px;
+                    box-shadow: 0 1px 4px 0 rgba(0, 0, 50, 0.3);
+                }
+                .table-row.item:hover{
+                    cursor: pointer;
+                    background-color: #71DFE7;
+                }
+
+                .table-cell{
+                    display: table-cell;
+                    text-align: start;
+                    padding: 4px 0;
+                    border-right: 1px solid black;
+                    vertical-align: middle;
+                    background-color: inherit;
+                }
+
+                .table-head{
+                    background-color: #396EB0;
+                    box-shadow: none;
+                    color: white;
+                    font-weight: 600;
+                }
+
+                .table-head .table-cell{
+                    border-right: none;
+                }
+
+                p{
+                    background-color: inherit;
+                }
+                /*-----------------*/
+
+                .styled-table {
+                border-collapse: collapse;
+                margin: 25px;
+                font-size: 0.85rem;
+                width: 96%;
+                border-radius: 7px 7px 0 0;
+                overflow: hidden;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
+                background-color: white;
+              }
+
+              .styled-table thead th {
+                    background-color: var(--primaryColor);
+                    color: #ffffff;
+                    text-align: start;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    z-index: 8;
+                }
+
+
+              .styled-table tbody tr{
+                background-color: white;
+                }
+
+             .styled-table tr th,
+                .styled-table td {
+                padding: 15px 20px;
+                text-align: center;
+            }
+
+            tr td{
+                background-color: inherit;
+            }
+
+            .styled-table tbody tr {
+               border-bottom: 3px solid #dddddd;
+              
+            }
+
+            .styled-table tbody tr:last-of-type {
+                border-bottom: 2px solid var(--primaryColor);;
+            }
+
+            .styled-table tbody tr.active-row {
+                font-weight: bold;
+                color: black;
+                background-color: #f6f7fb;
+                border-left: 8px solid var(--primaryColor);;
+            }
+
+            .styled-table tbody tr:hover{
+                background-color: #d6d3d2;
+                cursor: pointer;
+            }
+
+            /*-------------------*/
+            .top-bar{
+                margin-top: 20px;
+                margin-bottom: 16px;
+                padding-left: 25px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 96%;
+            }
+
+            .input-container{
+                width: 100%;
+                margin-right: 30px;
+            }
+
+            input{
+                width: 400px;
+                height: 40px;
+                border-radius: 3px;
+                font-size: 14px; 
+                padding: 12px 20px 12px 20px; 
+                border: 1px solid var(--primaryColor);; 
+            }
+
+            .buttons{
+                display: flex;
+                flex-direction: row;
+                vertical-align: middle;
+                align-items: center;
+            }
+
+            .buttons a{
+                margin: 8px 0 8px 18px;
+                text-decoration: none;
+                color: var(--primaryColor);;
+                font-size: 15px;    
+                font-weight: bold;
+            }
+
+            .buttons a:hover{
+                color: var(--primaryColor);;   
+            }
+
+            .buttons img{
+               height: 35px;
+               object-fit: cover;
+
+            }
+
+            /*-----------------*/
+                 .card-container{
+                    height: 90%;
+                    display: flex;
+                    padding-bottom: 0;
+                }
+
+                .card-container .items-container{
+                     width: 100%;
+                }
+
+               .fixTableHead {
+                    overflow-y: auto;
+                    height: 100%;
+                    background-color: white;
+                }
+
+               /*-------------------------------*/
+
+               .exportBtn{
+                    color: var(--primaryColor);;
+                    font-size: 15px;
+                    font-weight: 700;
+                    background-color: transparent;
+                    border: none;
+                    margin-left: 10px;
+               }
+
+               .exportBtn:hover{
+                color: var(--darkColor);;  
+               }
+
+            /*--------------custom input file-------------------*/
+              .custom-file-input {
+                  color: transparent;
+                  border: none;
+                  height: 30px;
+                  padding: 0;
+              }
+                .custom-file-input::-webkit-file-upload-button {
+                visibility: hidden;
+                }
+                .custom-file-input::before {
+                content: 'IMPORT';
+                color: var(--primaryColor);
+                display: inline-block;
+                border: none;
+                border-radius: 3px;
+                padding: 5px 8px;
+                outline: none;
+                white-space: nowrap;
+                -webkit-user-select: none;
+                cursor: pointer;
+                font-weight: 700;
+                font-size: 15px;
+                }
+                .custom-file-input:hover::before {
+                color: var(--darkColor);
+                }
+                .custom-file-input:active {
+                outline: 0;
+                }
+                .custom-file-input:active::before {
+                background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+                }
+
+             /*--------------custom input file-------------------*/    
+             .axis-col-container{
+                 display: flex;
+                 flex-direction: row;
+                 padding: 15px 15px 15px 25px;
+                 visibility: hidden;
+             }
+
+             label{
+                display: flex;
+                flex-direction: column;
+                color: var(--primaryColor);
+                }
+
+                .colSelector{
+                    min-width: 200px;
+                    margin-right: 30px;
+                    padding: 6px 12px 6px 12px;
+                    border-radius: 5px;
+                    background-color: #e9ecef;
+                }
+
+                .resizeBtnContainer{
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: end;
+                    margin: auto 0 0 auto;
+                }
+
+                .hideTableBtn{
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 5px;
+                    background-color: #e9ecef;
+                    color: black;
+                    border: 1px solid black;
+                }
+
+                .hideTableBtn:hover{
+                    background: var(--primaryColor);
+                    color: white;
+                }
+
+                .checkbox-container{
+                    padding: 12px 12px 12px 25px;
+                }
+
+                .colCheckbox{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 5px;
+                    margin-right: 15px;
+                }
+   
+        </style>
+
+    </head>
+    <body>
+
+  <div class="card-container">
+    <div class="items-container">
+
+        <div class="top-bar">
+    
+            <div class="left-side-buttons">
+                <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Search...">
+                <button class="exportBtn" onclick="functionUpdateXYdata()">PLOT</button> 
+                <button class="exportBtn" onclick="exportData()">EXPORT</button> 
+            
+                <input type="file" id="myFile" name="myFile" onchange="readCsvFile()"  class="custom-file-input">
+            </div>
+            
+            <div class="buttons">
+                <img src="intel-logo.png"/>
+            </div>
+          </div>
+
+          <div id="myPlot" style="width:100%;max-width:700px"></div>
+
+          <div class="axis-col-container">
+
+            <label for="axis-x">X Axis column:
+                    <select class="colSelector" name="axis-x" id="axis-x">
+                    </select>
+            </label>
+
+            <label for="axis-y">Y Axis column:
+                <select class="colSelector" name="axis-y" id="axis-y">
+                </select>
+            </label>
+
+            <div class="resizeBtnContainer">
+                <button class="hideTableBtn">-</button>
+            </div>
+           
+
+          </div>
+
+          <div class="checkbox-container"></div>
+
+            
+        <div class="fixTableHead">
+            <table class="styled-table" id="itemsTable">
+                <thead>
+                
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>     
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://www.markuptag.com/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+
+<script src="jquery-1.11.3.min.js"></script>
+<script src="ddtf.js"></script>
+<script>
+
+var xArray = [];
+var yArray = [];
+ 
+var highlightedRow=-1;
+var partsTable = document.getElementById("itemsTable");
+var rows = document.getElementById("itemsTable").rows;
+var headersRow;
+
+var newHeadersRow;
+var selectorColX = document.querySelector("#axis-x");
+var selectorColY = document.querySelector("#axis-y");
+var colX = 0;
+var colY = 0;
+var colXHeader = "";
+var colYHeader = "";
+
+let isTableHidden = false;
+var hideTableBtn = document.querySelector(".hideTableBtn");
+
+hideTableBtn.addEventListener("click", function(event){
+    
+    if(isTableHidden){
+       hideTableBtn.innerText = "-"
+       document.querySelector("tbody").style.visibility = "visible";
+       console.log("set init")
+    }else{
+        hideTableBtn.innerText = "+"
+        document.querySelector("tbody").style.visibility = "collapse";
+        console.log("set 0")
+    }
+    isTableHidden = !isTableHidden;
+});
+
+
+//populateInitTableFromArray();
+//updatePlot(xArray,yArray)
+
+
+    function clearRows(){
+        for (i = 0; i < rows.length; i++) {
+            rows[i].classList.remove("active-row");
+        }
+    }
+
+
+    function searchTable() {
+    // Declare variables
+    var input, filter, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    tr = partsTable.getElementsByTagName("tr");
+    cols = partsTable.getElementsByTagName("th");
+    
+            //check row
+            for (i = 1; i < tr.length; i++) {
+                td = tr[i];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+    function populateInitTableFromArray(){
+        initialWorkNumber = 9768;
+        var headers = ['work number',"Date in",'Date out','work order','Operator','part number','quantity','engine','work type','1234','-','Signature'];
+        var dataArray = [
+                        ['73863','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1883','-','Signature'],
+                        ['73864','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                        ['73865','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                        ['73866','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Tensile','1824','-','Signature'],
+                        ['73867','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','DHL','-','Signature'],
+                        ['73868','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','DHL','-','Signature'],
+                        ['73869','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                        ['73870','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1234','-','Signature'],
+                        ['73871','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1883','-','Signature'],
+                        ['73875','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Tensile','1824','-','Signature'],
+                        ['73876','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Metallography','1824','-','Signature'],
+                        ['73877','13/06/2021','13/06/2021','178637343','David nachmani','2A2718-01','3','PW4000','Hardness','1883','-','Signature']
+            
+                        ];
+
+         addHeadrRow(headers); 
+            for(var i=0;i<dataArray.length;i++){  
+                lastWorkNumber = initialWorkNumber+i;
+                dataArray[i][0] = lastWorkNumber.toString();
+                addRow(dataArray[i]) 
+        }      
+        console.log(lastWorkNumber)       
+    }
+
+
+
+
+    function addHeadrRow(inputValuesArray) {
+
+    var row = partsTable.querySelector('thead').insertRow(0);
+    for(var i=0; i<inputValuesArray.length; i++){
+     // row.insertCell(i).outerHTML = "<th class='dropdown'><p></p><div class='dropdown-content'><button class='dropdownItem'>Link 3</button></div></th>";
+     // row.cells[i].querySelector('p').textContent = inputValuesArray[i];
+        row.insertCell(i).outerHTML = "<th </th>";
+        row.cells[i].textContent = inputValuesArray[i];
+        }
+    }
+
+    function addRow(inputValuesArray) {
+
+    var row = partsTable.querySelector('tbody').insertRow(partsTable.rows.length-1);
+    for(var i=0; i<inputValuesArray.length; i++){
+        row.insertCell(i).textContent = inputValuesArray[i];
+        }
+    }
+
+
+
+    function exportData(){
+
+        /* Declaring array variable */
+        var rows =[];
+        var singleRow = [];
+        const numOfColumns = partsTable.rows[0].cells.length 
+        console.log(numOfColumns)
+
+        //start from 1 to skip header row
+        //bug there because filters have all the strings in them
+        for(var i=1; i< partsTable.rows.length ;i++){
+                singleRow = [];
+
+                if(partsTable.rows[i].style.display !== 'none'){
+                    for(var j=0; j<numOfColumns; j++){ 
+                    singleRow.push(partsTable.rows[i].cells[j].innerText)
+                    }
+                    rows.push(singleRow);
+                }
+           }   
+            
+
+            csvContent = "data:text/csv;charset=utf-8,";
+            /* add the column delimiter as comma(,) and each row splitted by new line character (\n) */
+            /* switched dataArray with dataArray */
+
+             //add headers
+             csvContent += headersRow + "\r\n";
+             
+            rows.forEach(function(rowArray){
+                console.log(rowArray)
+                row = rowArray.join(",");
+                console.log(row)
+                csvContent += row + "\r\n";
+            });
+
+
+            /* create a hidden <a> DOM node and set its download attribute */
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Report-filtered data.csv");
+            document.body.appendChild(link);
+            /* download the data file named "Stock_Price_Report.csv" */
+            link.click();
+    }
+
+
+    function readCsvFile() {
+        var rowContentTemp, rowContent;
+        var fileSize = 0;
+        var fileRows =[];
+        //get file
+        var theFile = document.getElementById("myFile");
+   
+        
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+        //check if file is CSV
+        if (regex.test(theFile.value.toLowerCase())) {
+        console.log("file is csv")
+        //check if browser support FileReader
+            if (typeof (FileReader) != "undefined") {
+        
+            var headerLine = "";
+            //create html5 file reader object
+            var myReader = new FileReader();
+            // call filereader. onload function
+            myReader.onload = function(e) {
+                var content = myReader.result;
+                //split csv file using "\n" for new line ( each row)
+                var lines = content.split("\r");
+
+                //get rid of empty lines - 8 is number of ',' in empty line
+                var lines = lines.filter(function (el) {
+                    return el.length > 8
+                    });
+            
+                //loop all rows
+                for (var count = 0; count < lines.length; count++) {
+                   
+                    //save headers row for export
+                    if(count == 0){
+                        headersRow = lines[count];
+                    }
+            
+                    //split each row content
+                 rowContentTemp  = lines[count].replace(/(\r\n|\n|\r)/gm, "");
+                 rowContent = rowContentTemp.split(",");
+                 //remove last column - is empty
+                 rowContent.pop();
+
+                //fileRows.push(rowContent)
+                    if(rowContent!==""){
+                        if(count == 0){
+                        addHeadrRow(rowContent); 
+                }else{					
+                        addRow(rowContent);
+                        }
+                    }   
+                }
+            
+                // addHeaderColHandlers();
+                jQuery('#itemsTable').ddTableFilter();
+
+                createAxisSelectors(selectorColX);
+                createAxisSelectors(selectorColY);
+
+                //set default header
+                 colXHeader = newHeadersRow[0];
+                 colYHeader = newHeadersRow[0];
+
+                 addColMarkers();
+                 createCheckboxes();
+                  //graph column selectors
+                  document.querySelector('#axis-x').addEventListener("change", function(event){
+                        event.preventDefault() //default reloads page
+                         colX = event.target.value;
+                         colXHeader = newHeadersRow[event.target.value];
+                     });
+
+                     document.querySelector('#axis-y').addEventListener("change", function(event){
+                        event.preventDefault() //default reloads page
+                         colY = event.target.value;
+                         colYHeader = newHeadersRow[event.target.value];              
+                     });
+                
+                //detect change in filters to rerender graph
+                    partsTable.querySelectorAll('select').forEach(x => x.addEventListener("change", function(event){
+                        event.preventDefault() //default reloads page
+                        console.log("table updated")
+                        functionUpdateXYdata();
+                     }));
+                
+
+            }
+            //call file reader onload
+            myReader.readAsText(theFile.files[0]);
+            }
+            else 
+            {
+                alert("This browser does not support HTML5.");
+            }
+
+          
+            document.querySelector( '.axis-col-container' ).style.visibility = "visible";
+            
+
+        }
+        else {
+                    alert("Please upload a valid CSV file.");
+        }
+        return false;
+    }
+
+
+     /*---------------------plot graph--------------------------------------*/
+
+     function createAxisSelectors(select){
+
+            //console.log(headersRow);
+            newHeadersRow = headersRow.split(",");
+            newHeadersRow.pop();
+            
+            for (var i = 0; i < newHeadersRow.length; i++) {
+                var option = document.createElement("option");
+                option.text = newHeadersRow[i];
+                option.value = i;
+                select.add(option);
+            }
+
+        }
+
+
+        function functionUpdateXYdata(){
+
+            console.log(colX)
+            console.log(colY)
+
+
+            xArray = [];
+            yArray = [];
+
+            for(var i=1; i< partsTable.rows.length ;i++){
+                if(partsTable.rows[i].style.display !== 'none'){
+                    xArray.push(partsTable.rows[i].cells[colX].innerText);
+                    yArray.push(partsTable.rows[i].cells[colY].innerText)
+                }
+           }   
+           updatePlot(xArray,yArray);
+        }
+
+
+        function updatePlot(xArray,yArray){
+
+             // Define Data
+            var data = [{
+            x:xArray,
+            y:yArray,
+            mode:"markers"
+            }];
+
+            yDelta = (Math.max(...yArray) - Math.min(...yArray))/yArray.length;
+            yDelta = Math.ceil(yDelta) 
+            yDelta = Math.round(10*yDelta)/10; 
+            console.log(yDelta)
+
+            xDelta = (Math.max(...xArray) - Math.min(...xArray))/xArray.length;
+            xDelta = Math.ceil(xDelta) 
+            xDelta = Math.round(10*xDelta)/10; 
+            console.log(xDelta)
+
+            
+            // Define Layout
+            var layout = {
+            xaxis: {range: [Math.min(...xArray)-xDelta, Math.max(...xArray)+xDelta], title: colXHeader},
+            yaxis: {range: [Math.min(...yArray)-yDelta, Math.max(...yArray)+yDelta], title: colYHeader},  
+            title: colYHeader + " Vs. " + colXHeader
+            };
+
+            // Display using Plotly
+            Plotly.newPlot("myPlot", data, layout);
+        }
+
+
+       /*---------------------Show hide columns-----------------------*/
+
+       function addColMarkers(){
+           for(var i=0; i<newHeadersRow.length;i++){
+                const elem = document.createElement("col"); 
+               // elem.style.visibility = "collapse" 
+                partsTable.appendChild(elem);
+           }
+       }
+
+       function createCheckboxes(){
+            for(var j=0; j<newHeadersRow.length;j++){
+                const checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.name = "name";
+                checkbox.value = j;
+                checkbox.id = "id";
+                checkbox.checked = true;
+                checkbox.className = "colCheckbox";
+                checkbox.onclick = function() {show_hide_column(checkbox.value,checkbox.checked)};
+                document.querySelector(".checkbox-container").appendChild(checkbox);
+            }
+       }
+
+
+       //send column index and bolean true/false
+       function show_hide_column(col_no, do_show) {
+           console.log("got nicked")
+           console.log(col_no)
+           console.log(do_show)
+        var col = partsTable.getElementsByTagName('col')[col_no];
+        if (col) {
+            col.style.visibility = do_show ? "" : "collapse";
+        }
+    }
+
+/*
+
+   var dropdownElements = [];
+   let map = new Map();
+
+    function addHeaderColHandlers() {
+        
+            rows[0].querySelectorAll('th').forEach(function(elem) {
+                elem.addEventListener("click", function() {
+                
+                clickedColumn = event.target.cellIndex;
+                console.log(clickedColumn);
+
+                dropdownElements = getColumn(clickedColumn);
+                // console.log(dropdownElements);
+                //show dropdown
+                simulateFilters(clickedColumn, "4500");
+                //  simulateFilters(clickedColumn+1, "bbbccc");
+          });
+       });
+    }
+
+
+function getColumn(col) {
+
+    var n = partsTable.rows.length;
+    var i, s = null, tr, td;
+    var colElements = []
+
+    // First check that col is not less then 0
+    if (col < 0) {
+        return null;
+    }
+
+    for (i = 1; i < n; i++) {
+        tr = partsTable.rows[i];
+        if (tr.cells.length > col) { // Check that cell exists before you try
+            td = tr.cells[col];
+            colElements.push(td.innerText);// to access it.
+        } // Here you could say else { return null; } if you want it to fail
+          // when requested column is out of bounds. It depends.
+    }
+     //remove duplicate items from array
+      dropdownElements = colElements.filter(function(item, pos){
+      return colElements.indexOf(item) == pos; 
+    });
+
+    return dropdownElements;
+}
+
+
+
+function simulateFilters(col, char){
+    if(map.has(col)){
+        let temp = map.get(col);
+        if(temp.includes(char)){
+            temp = temp.filter(e => e !== char);
+        }else{
+            temp.push(char)
+        }
+        map.set(col, temp);
+    }else{
+        let temp = [char]
+        map.set(col, temp);
+    }
+   
+   console.log(( map ))
+}
+
+function getCurrentDate(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = dd + '/' + mm + '/' + yyyy;
+    return today;
+}
+
+*/
+
+</script>
+
+    </body>
+</html>
