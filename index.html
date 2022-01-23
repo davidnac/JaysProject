@@ -397,7 +397,7 @@ var newHeadersRow;
 var selectorColX = document.querySelector("#axis-x");
 var selectorColY = document.querySelector("#axis-y");
 var colX = 0;
-var colY = 0;
+var colY = 6;
 var colXHeader = "";
 var colYHeader = "";
 
@@ -609,12 +609,12 @@ hideTableBtn.addEventListener("click", function(event){
                 // addHeaderColHandlers();
                 jQuery('#itemsTable').ddTableFilter();
 
-                createAxisSelectors(selectorColX);
-                createAxisSelectors(selectorColY);
+                createAxisSelectors(selectorColX,colX);
+                createAxisSelectors(selectorColY,colY);
 
                 //set default header
-                 colXHeader = newHeadersRow[0];
-                 colYHeader = newHeadersRow[0];
+                 colXHeader = newHeadersRow[colX];
+                 colYHeader = newHeadersRow[colY];
 
                  addColMarkers();
                  createCheckboxes();
@@ -662,7 +662,7 @@ hideTableBtn.addEventListener("click", function(event){
 
      /*---------------------plot graph--------------------------------------*/
 
-     function createAxisSelectors(select){
+     function createAxisSelectors(select,defaultCol){
 
             //console.log(headersRow);
             newHeadersRow = headersRow.split(",");
@@ -671,10 +671,12 @@ hideTableBtn.addEventListener("click", function(event){
             for (var i = 0; i < newHeadersRow.length; i++) {
                 var option = document.createElement("option");
                 option.text = newHeadersRow[i];
+                option.setAttribute("name", newHeadersRow[i]);
                 option.value = i;
                 select.add(option);
             }
 
+            select.options.namedItem(newHeadersRow[defaultCol]).selected = true;
         }
 
 
